@@ -1,0 +1,32 @@
+project name: cydeo-cucumber-junit-project
+
+1- add dependencies
+	- webdrivermanager (not-needed)
+	- java-selenium
+	- java-faker
+	- cucumber io
+		- cucumber junit
+		- cucumber java
+2- add plugins
+	- cucumber for java
+	- gherkin
+
+3- create :
+	- configuration.properties
+		- browser = chrome
+
+4- create folders and file
+	- resources (same level with java)
+		-features
+			- googleSearch.feature
+
+5- create packages
+	- utilities
+	- pages
+	- runners
+	- step_definitions
+
+6- create utility classes and copy paste
+	- ConfigurationReader
+	- Driver
+	- BrowserUtils
