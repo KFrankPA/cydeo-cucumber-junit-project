@@ -7,7 +7,7 @@ Feature: Bing search functionality
     Given user is on the Bing search page
     When  User searches for orange
     Then  user should see orange - Search
-
+@wip
   Scenario: Bing Search Title verification
     Given user is on the Bing search page
     When  User searches for "tesla"
