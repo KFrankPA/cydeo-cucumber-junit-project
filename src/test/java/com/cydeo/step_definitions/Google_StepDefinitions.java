@@ -22,7 +22,7 @@ public class Google_StepDefinitions {
     public void user_should_see_title_is_google() {
 
         String actualTitle = Driver.getDriver().getTitle();
-        String expectedTitle = "Google";
+        String expectedTitle =  "Google";
 
         Assert.assertEquals(actualTitle, expectedTitle);
         Driver.closeDriver();
