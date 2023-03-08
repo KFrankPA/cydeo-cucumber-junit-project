@@ -14,7 +14,7 @@ public class Hooks {
     //import the @Before coming from io.cucumber.java
     @Before (order = 1)
     public void setupMethod(){
-        System.out.println("--->>> @Before: Running before each scenario");
+       // System.out.println("--->>> @Before: Running before each scenario");
 
     }
     @Before(value = "@login", order = 2)
@@ -29,18 +29,18 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
 
-        System.out.println("---> @After: Running after each SCENARIO");
+    //    System.out.println("---> @After: Running after each SCENARIO");
         Driver.closeDriver();
     }
-    @BeforeStep
+    @BeforeStep(value = "@login")
     public void setupStep(){
-        System.out.println("---->@BeforeStep: Running before each step");
+       // System.out.println("---->@BeforeStep: Running before each step");
 
     }
-    @AfterStep
+    @AfterStep (value = "@login")
     public void teardownStep(){
 
-        System.out.println("@AfterStep: Running each after step");
+      //  System.out.println("@AfterStep: Running each after step");
     }
 
         }
