@@ -13,7 +13,7 @@ import java.util.List;
         features = "src/test/resources/features",
         glue = "com/cydeo/step_definitions",
         dryRun = false,
-        tags = "@dataTable",
+        tags = "@etsy",
         publish = true
 
 )

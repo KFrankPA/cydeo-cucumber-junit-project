@@ -20,9 +20,9 @@ public class Wikipedia_StepDef {
 
     }
 
-    @When("User types Steve Jobs in the wiki search box")
-    public void user_types_steve_jobs_in_the_wiki_search_box() {
-        wikipedia.searchBox.sendKeys(ConfigurationReader.getProperty("wikiSearch"));
+    @When("User types {string} in the wiki search box")
+    public void user_types_steve_jobs_in_the_wiki_search_box(String keyword) {
+        wikipedia.searchBox.sendKeys(keyword);
 
 
     }
@@ -35,17 +35,17 @@ public class Wikipedia_StepDef {
 
     @Then("User sees {string} is in the wiki title")
     public void user_sees_steve_jobs_is_in_the_wiki_title(String keyword) {
-        Assert.assertTrue(Driver.getDriver().getTitle().contains("Steve Jobs"));
+        Assert.assertTrue(Driver.getDriver().getTitle().contains(keyword));
     }
 
     @Then("User sees {string} is in the main header")
     public void user_sees_steve_jobs_is_in_the_main_header(String keyword) {
-        Assert.assertTrue(wikipedia.wikiHeader.getText().contains(ConfigurationReader.getProperty("wikiSearch")));
+        Assert.assertTrue(wikipedia.wikiHeader.getText().contains(keyword));
     }
 
-    @Then("User sees Steve Jobs is in the image header")
-    public void user_sees_steve_jobs_is_in_the_image_header() {
-        Assert.assertTrue(wikipedia.imgHeader.getText().contains(ConfigurationReader.getProperty("wikiSearch")));
+    @Then("User sees {string} is in the image header")
+    public void user_sees_steve_jobs_is_in_the_image_header(String keyword) {
+        Assert.assertTrue(wikipedia.imgHeader.getText().contains(keyword));
 
     }
 

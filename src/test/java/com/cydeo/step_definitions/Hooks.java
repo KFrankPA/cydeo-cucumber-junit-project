@@ -30,7 +30,7 @@ public class Hooks {
         }
 
     //    System.out.println("---> @After: Running after each SCENARIO");
-        Driver.closeDriver();
+       Driver.closeDriver();
     }
     @BeforeStep(value = "@login")
     public void setupStep(){
