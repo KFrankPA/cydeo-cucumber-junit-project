@@ -9,11 +9,15 @@ import java.util.List;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = "html:target/cucumber-reports.html",
+        plugin = {
+                "html:target/cucumber-reports.html",
+                "rerun:target/rerun.txt",
+                "me.jvt.cucumber.report.PrettyReports:target/cucumber"
+        },
         features = "src/test/resources/features",
         glue = "com/cydeo/step_definitions",
         dryRun = false,
-        tags = "@dataTable",
+        tags = "",
         publish = true
 
 )

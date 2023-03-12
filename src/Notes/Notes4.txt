@@ -1,0 +1,147 @@
+
+TODAY'S SCHEDULE:
+	- REMEMBER TO WORK ON YOUR "TELL ME ABOUT YOUR FRAMEWORK" QUESTION!
+	- BRIEF MOCK INTERVIEW SESSION
+	- NEW BROWSER UTILS CODES
+	- CUCUMBER RERUN
+	- NEW REPORT GENERATION
+	- PARALLEL TESTING
+
+---------------------------------------------------------------------------
+
+CUCUMBER SCHEDULE
+
+#1- dryRun
+#2- tags
+#3- html reports
+#4- Background
+#5- Hooks
+#6- Parameterization
+#7- TakesScreenShot
+#8- dataTables
+#9- scenario outlines
+#10- cucumber rerun
+#11- report generation
+#12- parallel testing
+
+---------------------------------------------------------------------------
+
+MOCK INTERVIEW:
+
+- SCENARIO VS SCENARIO OUTLINE:
+
+	- Scenario is just one test case being executed in BDD format.
+	- Scenario Outline is used to do DDT in BDD approach.
+	- We can pass a set of examples (test data) under a scenario outline.
+	- And same scenario will go through with all of the data that is provided under the "examples section"
+
+	- If we are using "Scenario Outline", we must provide "Examples: " table. Otherwise it will not even compile.
+
+- PARAMETERIZATION VS SCENARIO OUTLINE:
+
+	- In both of these, we are allowed to pass test data from the FEATURE FILES.
+	- Basically, we can do DATA DRIVEN TESTING using both of them.
+	- But, parameterization allows us to pass only 1 set of test data.
+	- Scenario outline is like "automated" version of parameterization.
+	- We provide all of the test data that is supposed to be executed, then when we run the scenario outline, it will go through all of them without further interruption.
+
+- BACKGROUND VS HOOKS:
+
+	- BACKGROUND:
+		- We can create "pre-condition" for all of the scenarios.
+		- It will work ONLY for the scenarios in the SAME feature file.
+		- Any "Step" we add under "Background:" will be executed for all of the scenarios in the same feature file.
+		- That's why its important to make sure all of the other scenarios are able to pick up and continue from where the background is leaving the test execution.
+
+	- HOOKS	:
+		- Hooks is similar logic to Background.
+		- But the difference is, it is in the implementation side (step_definitions) of the project.
+		- We can create pre and post conditions for ALL of the scenarios in the project.
+		- Also we can specifically choose which scenarios can be effected using "@tags"
+		- We should be careful about what we are putting under HOOKS class. Because it will not be visible to business people, it should not be anything from the actual features of the application.
+		- Mostly setups, and teardowns, and taking screenshots, creating and closing connections to databases will be handled using Hooks.
+
+---------------------------------------------------------------------------
+
+CUCUMBER RERUN PLUGIN:
+	- It allows us to keep track of the tests that are FAILING.
+	- So we don't have to execute all of the tests. We can just execute the ones that are failing.
+
+
+HOW DO WE IMPLEMENT CUCUMBER RERUN???
+
+- We can implement Rerun in 2 step.
+
+#1- USE THE PLUGIN IN THE RUNNER CLASS.
+
+		"rerun:target/rerun.txt"
+
+	- In this step, we are enabling the cucumber to keep track of failed tests, and store them inside of the .txt file we create under "target" folder.
+
+
+#2- CREATE A NEW "FAILED TEST RUNNER" CLASS
+	- This class will only look at the rerun.txt file we create.
+	- If there are any failed tests that are stored inside of that file, it will be able to execute those.
+	- FailedTestRunner class' ONLY ONLY ONLY JOB is to execute failed tests.
+
+
+		@RunWith(Cucumber.class)
+		@CucumberOptions(
+		        features = "@target/rerun.txt",  ----> we are pointing directly to "rerun.txt" file.
+		        glue = "com/cydeo/step_definitions"
+		)
+		public class FailedTestRunner {
+		}
+
+---------------------------------------------------------------------------
+
+MAVEN CUCUMBER REPORTING:
+	- It is just an extra tool to create a different report in Cucumber project.
+	- It has a bit more options compared to the "html" report we are generating using Cucumber.
+
+How to implement it?
+
+ - Step #1: Add the dependency in pom.xml
+
+ 		<dependency>
+            <groupId>me.jvt.cucumber</groupId>
+            <artifactId>reporting-plugin</artifactId>
+            <version>7.3.0</version>
+        </dependency>
+
+
+ - Step #2: Add the plugin in the runner class.
+
+ 	plugin { "me.jvt.cucumber.report.PrettyReports:target/cucumber" }
+
+---------------------------------------------------------------------------
+
+HOW DO YOU IMPLEMENT PARALLEL TESTING IN YOUR PROJECT?
+
+	#1- I adjusted my Driver utility class to be able to handle multiple Threads at once using InheritableThreadLocal class coming from Java library.
+
+	#2- I added plugins and configurations that are executed in the "mvn test" phase.
+		- I am using maven-surefire-plugin to be able to kickoff existing tests with additional configurations we provide in our plugin in pom.xml file.
+		- When I kick off "mvn test" phase, it will automatically be used.
+
+  	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <parallel>methods</parallel>
+                    <useUnlimitedThreads>false</useUnlimitedThreads>
+                    <threadCount>4</threadCount>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <includes>
+                        <include>**/CukesRunner*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+Displaying 1676755616379-DAY17_NOTES.txt.
